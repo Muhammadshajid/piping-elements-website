@@ -1,0 +1,1 @@
+export default function Software(){ return <div className='container p-8'><h1>Software</h1></div> }
