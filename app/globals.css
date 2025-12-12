@@ -3,33 +3,37 @@
 @tailwind utilities;
 
 :root {
-  --primary: #0b3c78;
-  --primary-dark: #082f5c;
-  --accent: #2563eb;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #0f172a;
+  --primary-blue: #1e4fd8;
+  --dark-blue: #0f2a56;
+  --light-blue: #eaf1ff;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  color: var(--text-dark);
+  background: #f8fafc;
 }
 
+
 .btn-primary {
-  padding: 12px 24px;
-  border-radius: 8px;
-  background: var(--accent);
+  background: var(--primary-blue);
   color: white;
-  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
 }
 
 .btn-outline {
-  padding: 12px 24px;
+  background: white;
+  color: var(--primary-blue);
+  padding: 12px 20px;
   border-radius: 8px;
-  border: 1px solid white;
-  color: white;
+  font-weight: 600;
+  border: 1px solid var(--primary-blue);
 }
+
 
 .card {
   background: white;
