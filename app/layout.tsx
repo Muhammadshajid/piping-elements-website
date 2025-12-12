@@ -1,7 +1,12 @@
-import './globals.css'
-import Link from 'next/link'
+import "./globals.css";
+import Link from "next/link";
+import ChatBox from "@/components/ChatBox";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
@@ -27,7 +32,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        {children}
+        {/* PAGE CONTENT */}
+        <main>{children}</main>
+
+        {/* CHATBOX — ADDED HERE */}
+        <ChatBox />
 
         {/* FOOTER */}
         <footer className="bg-[#020617] text-gray-300 mt-16">
@@ -61,6 +70,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       </body>
     </html>
-  )
+  );
+}
+
 }
 
