@@ -67,8 +67,6 @@ export default function HomePage() {
           <h2 className="text-center text-2xl font-bold mb-12">
             Why Piping Elements?
           </h2>
-import ExpertsCarousel from "@/components/ExpertsCarousel";
-<ExpertsCarousel />
 
           <div className="grid md:grid-cols-2 gap-8">
             {[
