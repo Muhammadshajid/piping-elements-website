@@ -1,16 +1,17 @@
 import './globals.css'
 import Link from 'next/link'
 
-export const metadata = { title: 'Piping Elements' }
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body>
-        <header className="header p-4">
-          <div className="container mx-auto flex items-center justify-between">
-            <div className="text-xl font-bold">Piping Elements</div>
-            <nav className="space-x-4">
+
+        {/* HEADER */}
+        <header className="bg-gradient-to-r from-[#0b3c78] to-[#082f5c] text-white">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="font-bold text-lg">PIPING ELEMENTS</div>
+
+            <nav className="hidden md:flex gap-6">
               <Link href="/">Home</Link>
               <Link href="/about">About</Link>
               <Link href="/services">Services</Link>
@@ -18,30 +19,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/blog">Blog</Link>
               <Link href="/contact">Contact</Link>
             </nav>
-            <div>
-              <button className="btn-primary">Request Consultation</button>
-              <button className="ml-2 btn-primary" style={{background:'#f59e0b'}}>Request Software Demo</button>
+
+            <div className="flex gap-3">
+              <button className="btn-outline">Request Consultation</button>
+              <button className="btn-primary">Request Software Demo</button>
             </div>
           </div>
         </header>
-     <main className="min-h-screen">{children}</main>
-        <footer className="p-6 text-sm bg-white mt-8">
-          <div className="container mx-auto flex justify-between">
-            <div>Piping Elements – Engineering Intelligence & Supply Chain Expertise</div>
-            <div className="space-x-4">
-              <Link href="/about">About</Link>
-              <Link href="/services">Services</Link>
-              <Link href="/software">Software</Link>
-              <Link href="/blog">Blog</Link>
-              <Link href="/contact">Contact</Link>
-            </div>
+
+        {children}
+
+        {/* FOOTER */}
+        <footer className="bg-[#020617] text-gray-300 mt-16">
+          <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
             <div>
-              <div>info@pipingelements.com</div>
-              <div>WhatsApp: +971-XXX-XXXXXX</div>
+              <h4 className="text-white font-semibold">Piping Elements</h4>
+              <p className="text-sm mt-2">
+                Engineering Intelligence & Supply Chain Expertise
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-2">Quick Links</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/about">About</Link></li>
+                <li><Link href="/services">Services</Link></li>
+                <li><Link href="/software">Software</Link></li>
+                <li><Link href="/blog">Blog</Link></li>
+                <li><Link href="/contact">Contact</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-2">Contact</h4>
+              <p>info@pipingelements.com</p>
+              <p>+971 50 123 4567</p>
+              <p>Dubai, UAE</p>
             </div>
           </div>
         </footer>
+
       </body>
     </html>
   )
 }
+
