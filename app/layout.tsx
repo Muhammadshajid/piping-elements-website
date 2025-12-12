@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </header>
-        <main>{children}</main>
+     <main className="min-h-screen">{children}</main>
         <footer className="p-6 text-sm bg-white mt-8">
           <div className="container mx-auto flex justify-between">
             <div>Piping Elements – Engineering Intelligence & Supply Chain Expertise</div>
