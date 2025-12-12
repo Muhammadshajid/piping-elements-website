@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --pe-primary: #0f4c81;
+  --pe-accent: #f59e0b;
+  --pe-bg: #f8fafc;
+  --pe-card: #ffffff;
+  --pe-text: #0b1220;
+}
+
+body {
+  background: var(--pe-bg);
+  color: var(--pe-text);
+}
+
+.header {
+  background: linear-gradient(
+    90deg,
+    rgba(15,76,129,0.95),
+    rgba(14,43,80,0.95)
+  );
+  color: white;
+}
+
+.btn-primary {
+  background: var(--pe-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.card {
+  background: var(--pe-card);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px rgba(2,6,23,0.06);
+  padding: 1rem;
+}
