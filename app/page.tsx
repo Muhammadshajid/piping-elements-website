@@ -1,39 +1,57 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="container mx-auto p-8">
-      <section className="grid grid-cols-2 gap-6 items-center">
+    <>
+      {/* HERO */}
+      <section className="section grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h1 className="text-4xl font-bold">Engineering Intelligence | Supply Chain Expertise | Digital Innovation</h1>
-          <p className="mt-4">Supporting EPC, oil & gas, and fabrication companies with senior-level consulting, end-to-end supply chain solutions, and GCC-authorized software for piping fabrication.</p>
-          <div className="mt-6">
-            <Link href="/services" className="btn-primary mr-3">Explore Services</Link>
-            <Link href="/contact" className="btn-primary" style={{background:'#f59e0b'}}>Talk to an Expert</Link>
+          <h1 className="text-5xl font-extrabold leading-tight">
+            Engineering Intelligence <br />
+            Supply Chain Expertise <br />
+            Digital Innovation
+          </h1>
+
+          <p className="mt-6 text-lg text-gray-600">
+            Supporting EPC, oil & gas, and fabrication companies with senior-level
+            consulting, end-to-end supply chain solutions, and GCC-authorized
+            software for piping fabrication.
+          </p>
+
+          <div className="mt-8 flex gap-4">
+            <Link href="/services" className="btn-primary">
+              Explore Services
+            </Link>
+            <Link href="/contact" className="btn-accent">
+              Talk to an Expert
+            </Link>
           </div>
         </div>
-        <div>
-          <div className="card p-6">
-            <h3 className="text-xl font-semibold">Our Core Verticals</h3>
-            <ul className="mt-4 space-y-2">
-              <li><strong>Supply Chain & Procurement:</strong> Efficient material sourcing, vendor management, and project support.</li>
-              <li><strong>Engineering Consultancy:</strong> Multi-discipline engineering guidance.</li>
-              <li><strong>Senior Expert Advisory:</strong> Retired EPC managers and PhDs.</li>
-              <li><strong>Software Solutions:</strong> Pipesurf, SpoolCAD, PipeCloud.</li>
-            </ul>
-          </div>
+
+        <div className="card">
+          <h3 className="text-2xl font-semibold mb-4">
+            Our Core Verticals
+          </h3>
+          <ul className="space-y-3 text-gray-700">
+            <li><strong>Supply Chain & Procurement:</strong> Efficient material sourcing and vendor management.</li>
+            <li><strong>Engineering Consultancy:</strong> Multi-discipline engineering guidance.</li>
+            <li><strong>Senior Expert Advisory:</strong> Retired EPC managers and PhDs.</li>
+            <li><strong>Software Solutions:</strong> Pipesurf, SpoolCAD, PipeCloud.</li>
+          </ul>
         </div>
       </section>
 
-      <section className="mt-10">
-        <h2 className="text-2xl font-bold">Why Piping Elements?</h2>
-        <div className="grid grid-cols-4 gap-4 mt-4">
+      {/* WHY US */}
+      <section className="section bg-white rounded-t-3xl">
+        <h2 className="section-title">Why Piping Elements?</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           <div className="card">Senior Expertise</div>
           <div className="card">End-to-End Solutions</div>
           <div className="card">Trusted by Contractors</div>
           <div className="card">Authorized Software Partner</div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
