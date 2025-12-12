@@ -1,4 +1,4 @@
-import ExpertsCarousel from "@/components/ExpertsCarousel";
+import ExpertsCarousel from "@/component/ExpertsCarousel";
 import Link from "next/link";
 
 export default function HomePage() {
