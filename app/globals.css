@@ -2,38 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+/* ===== BRAND VARIABLES ===== */
+:root {
   --pe-primary: #0f4c81;
+  --pe-primary-dark: #0b3a66;
   --pe-accent: #f59e0b;
   --pe-bg: #f8fafc;
   --pe-card: #ffffff;
   --pe-text: #0b1220;
 }
 
+/* ===== BASE ===== */
 body {
-  background: var(--pe-bg);
+  background-color: var(--pe-bg);
   color: var(--pe-text);
 }
 
+/* ===== LAYOUT HELPERS ===== */
+.section {
+  @apply max-w-7xl mx-auto px-6 py-20;
+}
+
+.section-title {
+  @apply text-4xl font-bold text-gray-900 mb-6;
+}
+
+.section-subtitle {
+  @apply text-lg text-gray-600 max-w-3xl;
+}
+
+/* ===== HEADER ===== */
 .header {
   background: linear-gradient(
     90deg,
-    rgba(15,76,129,0.95),
-    rgba(14,43,80,0.95)
+    var(--pe-primary),
+    var(--pe-primary-dark)
   );
-  color: white;
 }
 
+/* ===== BUTTONS ===== */
 .btn-primary {
-  background: var(--pe-primary);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white;
+  background-color: var(--pe-primary);
 }
 
+.btn-primary:hover {
+  background-color: var(--pe-primary-dark);
+}
+
+.btn-accent {
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white;
+  background-color: var(--pe-accent);
+}
+
+/* ===== CARDS ===== */
 .card {
-  background: var(--pe-card);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 14px rgba(2,6,23,0.06);
-  padding: 1rem;
+  background-color: var(--pe-card);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
