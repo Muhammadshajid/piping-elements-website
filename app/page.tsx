@@ -1,3 +1,4 @@
+import ExpertsCarousel from "@/components/ExpertsCarousel";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -44,10 +45,22 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-8 mt-12">
             {[
-              ["Supply Chain & Procurement", "Efficient material sourcing, vendor management, and project support."],
-              ["Engineering Consultancy", "Multi-discipline engineering guidance for planning, fabrication, and execution."],
-              ["Senior Expert Advisory", "Access retired EPC managers, PhDs, and industry specialists."],
-              ["Software Solutions", "GCC-authorized software: Pipesurf and SpoolCAD."],
+              [
+                "Supply Chain & Procurement",
+                "Efficient material sourcing, vendor management, and project support.",
+              ],
+              [
+                "Engineering Consultancy",
+                "Multi-discipline engineering guidance for planning, fabrication, and execution.",
+              ],
+              [
+                "Senior Expert Advisory",
+                "Access retired EPC managers, PhDs, and industry specialists.",
+              ],
+              [
+                "Software Solutions",
+                "GCC-authorized software: Pipesurf and SpoolCAD.",
+              ],
             ].map(([title, desc]) => (
               <div key={title} className="bg-white rounded-xl p-6 shadow-sm">
                 <h3 className="font-semibold text-lg">{title}</h3>
@@ -70,10 +83,22 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              ["Senior Expertise", "Access to retired EPC leaders and industry PhDs with decades of experience."],
-              ["End-to-End Solutions", "From procurement to engineering to digital tools—complete project support."],
-              ["Trusted by Contractors", "Proven track record with Tier-1, 2, and 3 contractors across GCC."],
-              ["Authorized Software Partner", "GCC-authorized distributor for leading piping fabrication software."],
+              [
+                "Senior Expertise",
+                "Access to retired EPC leaders and industry PhDs with decades of experience.",
+              ],
+              [
+                "End-to-End Solutions",
+                "From procurement to engineering to digital tools—complete project support.",
+              ],
+              [
+                "Trusted by Contractors",
+                "Proven track record with Tier-1, 2, and 3 contractors across GCC.",
+              ],
+              [
+                "Authorized Software Partner",
+                "GCC-authorized distributor for leading piping fabrication software.",
+              ],
             ].map(([title, desc]) => (
               <div key={title} className="bg-white p-6 rounded-xl shadow-sm">
                 <h3 className="font-semibold">{title}</h3>
@@ -84,27 +109,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED EXPERTS */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold">Featured Experts</h2>
-          <p className="text-gray-600 mt-2">
-            Connect with our senior advisory panel
-          </p>
-
-          <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-8 mt-10">
-            <h3 className="font-semibold text-lg">Ahmed Al-Mazrouei</h3>
-            <p className="text-sm text-gray-500">Project Controls</p>
-            <p className="mt-4 text-gray-600">
-              Former EPC manager with expertise in scheduling, cost control,
-              and procurement.
-            </p>
-            <button className="btn-primary mt-6">
-              Book a Consultation
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* FEATURED EXPERTS — NOW USING COMPONENT */}
+      <ExpertsCarousel />
 
       {/* SOFTWARE SECTION */}
       <section className="py-24 text-white" style={{ background: "#1e4fd8" }}>
@@ -157,7 +163,10 @@ export default function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-20 text-center text-white" style={{ background: "#1e4fd8" }}>
+      <section
+        className="py-20 text-center text-white"
+        style={{ background: "#1e4fd8" }}
+      >
         <h2 className="text-2xl font-bold">
           Need guidance from senior EPC professionals?
         </h2>
