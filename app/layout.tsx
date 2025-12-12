@@ -1,6 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
-import ChatBox from "@/components/ChatBox";
+import ChatBox from "../components/ChatBox";
 
 export default function RootLayout({
   children,
