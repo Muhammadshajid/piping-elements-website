@@ -14,5 +14,10 @@
     "@supabase/supabase-js": "2.45.4",
     "react-quill": "2.0.0",
     "recharts": "2.6.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13",
+    "postcss": "^8.4.38",
+    "autoprefixer": "^10.4.19"
   }
 }
