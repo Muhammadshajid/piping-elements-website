@@ -2,63 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== BRAND VARIABLES ===== */
 :root {
-  --pe-primary: #0f4c81;
-  --pe-primary-dark: #0b3a66;
+  --pe-blue-dark: #0b2a4a;
+  --pe-blue: #0f4c81;
+  --pe-blue-light: #1e66b3;
   --pe-accent: #f59e0b;
   --pe-bg: #f8fafc;
   --pe-card: #ffffff;
   --pe-text: #0b1220;
 }
 
-/* ===== BASE ===== */
 body {
-  background-color: var(--pe-bg);
+  background: var(--pe-bg);
   color: var(--pe-text);
 }
 
-/* ===== LAYOUT HELPERS ===== */
-.section {
-  @apply max-w-7xl mx-auto px-6 py-20;
-}
-
-.section-title {
-  @apply text-4xl font-bold text-gray-900 mb-6;
-}
-
-.section-subtitle {
-  @apply text-lg text-gray-600 max-w-3xl;
-}
-
-/* ===== HEADER ===== */
-.header {
-  background: linear-gradient(
-    90deg,
-    var(--pe-primary),
-    var(--pe-primary-dark)
-  );
-}
-
-/* ===== BUTTONS ===== */
+/* Buttons */
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white;
-  background-color: var(--pe-primary);
+  background: var(--pe-blue-light);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
 }
 
-.btn-primary:hover {
-  background-color: var(--pe-primary-dark);
+.btn-outline {
+  border: 1px solid white;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.375rem;
 }
 
-.btn-accent {
-  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white;
-  background-color: var(--pe-accent);
-}
-
-/* ===== CARDS ===== */
+/* Cards */
 .card {
-  background-color: var(--pe-card);
-  border-radius: 1rem;
+  background: var(--pe-card);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
   padding: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
