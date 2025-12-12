@@ -1,87 +1,60 @@
+"use client";
+
+import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+
 export default function ContactPage() {
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess("");
+
+    const { error } = await supabase.from("contact_inquiries").insert([
+      { message },
+    ]);
+
+    setLoading(false);
+
+    if (error) {
+      alert("Error sending message");
+    } else {
+      setMessage("");
+      setSuccess("Message sent successfully!");
+    }
+  };
+
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-5xl mx-auto px-6">
-        
-        {/* HEADING */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Connect With Us
-          </h1>
-          <p className="text-gray-600 mt-3">
-            Reach out to our experts for consultancy, procurement, or software solutions
-          </p>
-        </div>
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-xl mx-auto bg-white p-8 rounded-xl shadow">
+        <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
 
-        {/* CONTENT GRID */}
-        <div className="grid md:grid-cols-2 gap-12">
-          
-          {/* CONTACT FORM */}
-          <form className="bg-white p-8 rounded-xl shadow-sm space-y-5">
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full border rounded-md px-4 py-3"
-            />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <textarea
+            required
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Your message"
+            className="w-full border p-3 rounded"
+            rows={5}
+          />
 
-            <input
-              type="text"
-              placeholder="Company Name"
-              className="w-full border rounded-md px-4 py-3"
-            />
+          <button
+            disabled={loading}
+            className="btn-primary w-full"
+          >
+            {loading ? "Sending..." : "Send Message"}
+          </button>
 
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full border rounded-md px-4 py-3"
-            />
-
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="w-full border rounded-md px-4 py-3"
-            />
-
-            <select className="w-full border rounded-md px-4 py-3">
-              <option>Service Needed</option>
-              <option>Supply Chain & Procurement</option>
-              <option>Engineering Consultancy</option>
-              <option>Senior Expert Advisory</option>
-              <option>Software Solutions</option>
-            </select>
-
-            <textarea
-              rows={4}
-              placeholder="Your Message"
-              className="w-full border rounded-md px-4 py-3"
-            ></textarea>
-
-            <button className="btn-primary w-full">
-              Submit Inquiry
-            </button>
-          </form>
-
-          {/* CONTACT INFO */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="font-semibold text-lg text-gray-900">Office – UAE</h3>
-              <p className="text-gray-600 mt-2">
-                Dubai, United Arab Emirates
-              </p>
-              <p className="text-gray-600">info@pipingelements.com</p>
-              <p className="text-gray-600">+971 50 123 4567</p>
-            </div>
-
-            <div className="rounded-xl overflow-hidden shadow-sm">
-              <iframe
-                title="UAE Office Map"
-                src="https://www.google.com/maps?q=Dubai&output=embed"
-                className="w-full h-64 border-0"
-              ></iframe>
-            </div>
-          </div>
-
-        </div>
+          {success && (
+            <p className="text-green-600 text-center mt-2">
+              {success}
+            </p>
+          )}
+        </form>
       </div>
     </section>
   );
