@@ -1,19 +1,27 @@
-export default function BlogDetail() {
-  return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-6 max-w-3xl">
-        <h1 className="text-3xl font-bold">
-          Managing Supply Chain Risk in EPC Projects
-        </h1>
-        <p className="mt-6 text-gray-600">
-          Full blog content goes here. This is where insights,
-          expertise, and authority are shown.
-        </p>
+import { supabase } from "@/lib/supabaseClient";
 
-        <div className="mt-10 flex gap-4">
-          <button className="btn-outline">Share on LinkedIn</button>
-          <button className="btn-outline">Copy Link</button>
-        </div>
+export default async function BlogDetail({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { data: blog } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("slug", params.slug)
+    .single();
+
+  if (!blog) return <p>Blog not found</p>;
+
+  return (
+    <section className="py-20">
+      <div className="max-w-3xl mx-auto px-6">
+        <h1 className="text-3xl font-bold">{blog.title}</h1>
+        <p className="text-gray-500 mt-2">{blog.category}</p>
+
+        <article className="mt-8 prose max-w-none">
+          {blog.content}
+        </article>
       </div>
     </section>
   );
