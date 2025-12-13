@@ -1,35 +1,35 @@
+import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 
-const blogs = [
-  {
-    slug: "supply-chain-risk",
-    title: "Managing Supply Chain Risk in EPC Projects",
-    excerpt: "Key strategies to reduce delays and cost overruns...",
-  },
-];
+export default async function BlogPage() {
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("published", true)
+    .order("created_at", { ascending: false });
 
-export default function BlogPage() {
   return (
-    <>
-      <section className="py-24 bg-[var(--dark-blue)] text-white">
-        <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold">Insights & Knowledge</h1>
-        </div>
-      </section>
+    <section className="py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <h1 className="text-3xl font-bold mb-10">Insights & Blogs</h1>
 
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
-          {blogs.map((b) => (
-            <div key={b.slug} className="bg-gray-50 p-6 rounded-xl">
-              <h3 className="font-semibold text-lg">{b.title}</h3>
-              <p className="text-gray-600 mt-2">{b.excerpt}</p>
-              <Link href={`/blog/${b.slug}`} className="text-blue-600 mt-4 inline-block">
+        <div className="grid md:grid-cols-3 gap-8">
+          {blogs?.map((blog) => (
+            <div key={blog.id} className="bg-white rounded-xl shadow p-6">
+              <p className="text-sm text-blue-600">{blog.category}</p>
+              <h2 className="font-semibold text-lg mt-2">{blog.title}</h2>
+              <p className="text-gray-600 mt-2">{blog.excerpt}</p>
+
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="text-blue-600 mt-4 inline-block"
+              >
                 Read More →
               </Link>
             </div>
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
