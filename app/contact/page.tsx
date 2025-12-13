@@ -4,93 +4,74 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function ContactPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
 
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
     const { error } = await supabase
       .from("contact_inquiries")
-      .insert([{ name, email, message }]);
+      .insert([
+        {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          company: formData.get("company"),
+          service: formData.get("service"),
+          message: formData.get("message"),
+        },
+      ]);
 
     setLoading(false);
 
-    if (error) {
-      alert("Something went wrong");
+    if (!error) {
+      setSuccess(true);
+      form.reset();
     } else {
-      alert("Message sent successfully");
-      setName("");
-      setEmail("");
-      setMessage("");
+      alert("Something went wrong. Try again.");
     }
   }
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+    <section className="py-20">
+      <div className="max-w-xl mx-auto px-6">
+        <h1 className="text-2xl font-bold mb-6">Contact Us</h1>
 
-        {/* FORM */}
-        <form
-          onSubmit={handleSubmit}
-          className="md:col-span-2 bg-white rounded-xl shadow p-8"
-        >
-          <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
+        {success && (
+          <p className="mb-4 text-green-600">
+            ✅ Message sent successfully
+          </p>
+        )}
 
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <input
-              type="text"
-              placeholder="Your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="border rounded-lg p-4 w-full"
-            />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input name="name" placeholder="Name" required className="input" />
+          <input name="email" placeholder="Email" required className="input" />
+          <input name="phone" placeholder="Phone" className="input" />
+          <input name="company" placeholder="Company" className="input" />
 
-            <input
-              type="email"
-              placeholder="Your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="border rounded-lg p-4 w-full"
-            />
-          </div>
+          <select name="service" className="input">
+            <option>Supply Chain</option>
+            <option>Engineering Consultancy</option>
+            <option>Expert Advisory</option>
+            <option>Software</option>
+          </select>
 
           <textarea
-            placeholder="Your message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-            rows={6}
-            className="border rounded-lg p-4 w-full mb-6"
+            name="message"
+            placeholder="Message"
+            rows={4}
+            className="input"
           />
 
-          <button
-            disabled={loading}
-            className="btn-primary w-full py-4 text-lg"
-          >
-            {loading ? "Sending..." : "Send Message"}
+          <button disabled={loading} className="btn-primary w-full">
+            {loading ? "Sending..." : "Submit Inquiry"}
           </button>
         </form>
-
-        {/* SIDE CARD */}
-        <div className="bg-white rounded-xl shadow p-8 h-fit">
-          <h3 className="text-xl font-semibold mb-2">
-            Need expert guidance?
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Leave your message. We’ll respond shortly.
-          </p>
-
-          <a href="/services" className="btn-outline w-full text-center block">
-            Explore Services
-          </a>
-        </div>
-
       </div>
     </section>
   );
