@@ -1,28 +1,50 @@
 import { supabase } from "@/lib/supabaseClient";
+import { notFound } from "next/navigation";
 
-export default async function BlogDetail({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface BlogPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function BlogDetailPage({ params }: BlogPageProps) {
+  const { slug } = params;
+
   const { data: blog } = await supabase
     .from("blogs")
     .select("*")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
+    .eq("published", true)
     .single();
 
-  if (!blog) return <p>Blog not found</p>;
+  if (!blog) {
+    notFound();
+  }
 
   return (
-    <section className="py-20">
-      <div className="max-w-3xl mx-auto px-6">
-        <h1 className="text-3xl font-bold">{blog.title}</h1>
-        <p className="text-gray-500 mt-2">{blog.category}</p>
+    <article className="max-w-4xl mx-auto px-6 py-16">
+      {/* TITLE */}
+      <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
 
-        <article className="mt-8 prose max-w-none">
-          {blog.content}
-        </article>
+      {/* DATE */}
+      <p className="text-sm text-gray-500 mb-8">
+        Published on{" "}
+        {new Date(blog.created_at).toLocaleDateString()}
+      </p>
+
+      {/* COVER IMAGE (optional) */}
+      {blog.cover_image && (
+        <img
+          src={blog.cover_image}
+          alt={blog.title}
+          className="rounded-xl mb-10"
+        />
+      )}
+
+      {/* CONTENT */}
+      <div className="prose prose-lg max-w-none">
+        {blog.content}
       </div>
-    </section>
+    </article>
   );
 }
