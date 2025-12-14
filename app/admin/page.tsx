@@ -1,16 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function AdminPage() {
+  const router = useRouter();
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
+  /* ============================
+     AUTH CHECK (STEP 13.3)
+  ============================ */
   useEffect(() => {
-    fetchContacts();
+    checkAuth();
   }, []);
 
+  async function checkAuth() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    setCheckingAuth(false);
+    fetchContacts();
+  }
+
+  /* ============================
+     FETCH CONTACT DATA
+  ============================ */
   async function fetchContacts() {
     const { data, error } = await supabase
       .from("contact_inquiries")
@@ -24,9 +47,34 @@ export default function AdminPage() {
     setLoading(false);
   }
 
+  /* ============================
+     LOGOUT (STEP 13.4)
+  ============================ */
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    router.push("/login");
+  }
+
+  /* ============================
+     UI STATES
+  ============================ */
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Checking authentication...
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <button onClick={handleLogout} className="btn-outline">
+          Logout
+        </button>
+      </div>
 
       {loading && <p>Loading...</p>}
 
@@ -42,6 +90,7 @@ export default function AdminPage() {
                 <th className="p-3">Date</th>
               </tr>
             </thead>
+
             <tbody>
               {contacts.map((c) => (
                 <tr key={c.id} className="border-t">
