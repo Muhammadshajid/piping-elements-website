@@ -10,11 +10,11 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // ✅ NEW: modal state
+  // modal state
   const [selectedContact, setSelectedContact] = useState<any | null>(null);
 
   /* ============================
-     AUTH CHECK (STEP 13.3)
+     AUTH CHECK
   ============================ */
   useEffect(() => {
     checkAuth();
@@ -35,7 +35,7 @@ export default function AdminPage() {
   }
 
   /* ============================
-     FETCH CONTACT DATA
+     FETCH CONTACTS
   ============================ */
   async function fetchContacts() {
     const { data, error } = await supabase
@@ -51,7 +51,27 @@ export default function AdminPage() {
   }
 
   /* ============================
-     LOGOUT (STEP 13.4)
+     DELETE INQUIRY
+  ============================ */
+  async function deleteInquiry(id: string) {
+    const confirmDelete = confirm("Are you sure you want to delete this inquiry?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabase
+      .from("contact_inquiries")
+      .delete()
+      .eq("id", id);
+
+    if (!error) {
+      setContacts((prev) => prev.filter((c) => c.id !== id));
+      if (selectedContact?.id === id) {
+        setSelectedContact(null);
+      }
+    }
+  }
+
+  /* ============================
+     LOGOUT
   ============================ */
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -91,7 +111,7 @@ export default function AdminPage() {
                 <th className="p-3">Email</th>
                 <th className="p-3">Service</th>
                 <th className="p-3">Date</th>
-                <th className="p-3">Action</th>
+                <th className="p-3">Actions</th>
               </tr>
             </thead>
 
@@ -105,12 +125,19 @@ export default function AdminPage() {
                   <td className="p-3">
                     {new Date(c.created_at).toLocaleDateString()}
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 flex gap-4">
                     <button
                       onClick={() => setSelectedContact(c)}
                       className="text-blue-600 hover:underline"
                     >
                       View
+                    </button>
+
+                    <button
+                      onClick={() => deleteInquiry(c.id)}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -149,6 +176,15 @@ export default function AdminPage() {
               <p className="mt-2 text-gray-700 whitespace-pre-wrap">
                 {selectedContact.message}
               </p>
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => deleteInquiry(selectedContact.id)}
+                className="text-red-600 hover:underline"
+              >
+                Delete Inquiry
+              </button>
             </div>
           </div>
         </div>
