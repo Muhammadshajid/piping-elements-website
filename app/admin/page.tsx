@@ -58,7 +58,7 @@ export default function AdminPage() {
   }
 
   /* ============================
-     DELETE
+     DELETE INQUIRY
   ============================ */
   async function deleteInquiry(id: string) {
     if (!confirm("Delete this inquiry?")) return;
@@ -81,14 +81,20 @@ export default function AdminPage() {
   }
 
   if (checkingAuth) {
-    return <div className="min-h-screen flex items-center justify-center">Checking authentication…</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Checking authentication…
+      </div>
+    );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-16">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <button onClick={handleLogout} className="btn-outline">Logout</button>
+        <button onClick={handleLogout} className="btn-outline">
+          Logout
+        </button>
       </div>
 
       {!loading && (
