@@ -6,10 +6,15 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function AdminPage() {
   const router = useRouter();
+
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [selectedContact, setSelectedContact] = useState<any | null>(null);
+
+  // STEP A5 states
+  const [replyText, setReplyText] = useState("");
+  const [sending, setSending] = useState(false);
 
   /* ============================
      AUTH CHECK
@@ -20,10 +25,12 @@ export default function AdminPage() {
 
   async function checkAuth() {
     const { data: { user } } = await supabase.auth.getUser();
+
     if (!user) {
       router.push("/login");
       return;
     }
+
     setCheckingAuth(false);
     fetchContacts();
   }
@@ -70,6 +77,38 @@ export default function AdminPage() {
 
     setContacts((prev) => prev.filter((c) => c.id !== id));
     setSelectedContact(null);
+  }
+
+  /* ============================
+     SEND REPLY EMAIL (STEP A5)
+  ============================ */
+  async function sendReply() {
+    if (!selectedContact || !replyText.trim()) {
+      alert("Reply message cannot be empty");
+      return;
+    }
+
+    setSending(true);
+
+    const res = await fetch("/api/send-reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        to: selectedContact.email,
+        subject: "Reply from Piping Elements",
+        message: replyText,
+      }),
+    });
+
+    setSending(false);
+
+    if (res.ok) {
+      alert("Email sent successfully");
+      setReplyText("");
+      setSelectedContact(null);
+    } else {
+      alert("Failed to send email");
+    }
   }
 
   /* ============================
@@ -157,7 +196,7 @@ export default function AdminPage() {
           <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
             <button
               onClick={() => setSelectedContact(null)}
-              className="absolute top-3 right-3"
+              className="absolute top-3 right-3 text-gray-500"
             >
               ✕
             </button>
@@ -168,9 +207,31 @@ export default function AdminPage() {
             <p><strong>Email:</strong> {selectedContact.email}</p>
             <p><strong>Service:</strong> {selectedContact.service}</p>
 
-            <p className="mt-4 whitespace-pre-wrap">
-              {selectedContact.message}
-            </p>
+            <div className="mt-4">
+              <strong>Message:</strong>
+              <p className="mt-2 text-gray-700 whitespace-pre-wrap">
+                {selectedContact.message}
+              </p>
+            </div>
+
+            {/* REPLY SECTION */}
+            <div className="mt-6">
+              <h3 className="font-semibold mb-2">Reply</h3>
+              <textarea
+                value={replyText}
+                onChange={(e) => setReplyText(e.target.value)}
+                className="w-full border rounded p-2 min-h-[120px]"
+                placeholder="Type your reply here..."
+              />
+
+              <button
+                onClick={sendReply}
+                disabled={sending}
+                className="btn-primary mt-4"
+              >
+                {sending ? "Sending..." : "Send Reply"}
+              </button>
+            </div>
           </div>
         </div>
       )}
