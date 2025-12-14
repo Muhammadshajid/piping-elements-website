@@ -1,28 +1,29 @@
 import { Resend } from "resend";
-import { NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { to, subject, message } = await req.json();
-
   try {
-    const data = await resend.emails.send({
-      from: "Piping Elements <info@pipingelements.com>",
+    const { to, subject, message } = await req.json();
+
+    await resend.emails.send({
+      from: "Piping Elements <noreply@pipingelements.com>",
       to,
       subject,
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6">
+        <div style="font-family: Arial, sans-serif">
           <p>${message.replace(/\n/g, "<br/>")}</p>
-          <hr/>
-          <p><strong>Piping Elements</strong><br/>
-          Engineering Intelligence & Supply Chain Expertise</p>
+          <hr />
+          <p style="font-size:12px;color:#666">
+            Piping Elements – Engineering Intelligence & Supply Chain Expertise
+          </p>
         </div>
       `,
     });
 
-    return NextResponse.json({ success: true, data });
+    return Response.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("EMAIL ERROR:", error);
+    return Response.json({ success: false }, { status: 500 });
   }
 }
