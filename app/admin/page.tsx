@@ -10,6 +10,9 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  // ✅ NEW: modal state
+  const [selectedContact, setSelectedContact] = useState<any | null>(null);
+
   /* ============================
      AUTH CHECK (STEP 13.3)
   ============================ */
@@ -88,6 +91,7 @@ export default function AdminPage() {
                 <th className="p-3">Email</th>
                 <th className="p-3">Service</th>
                 <th className="p-3">Date</th>
+                <th className="p-3">Action</th>
               </tr>
             </thead>
 
@@ -101,6 +105,14 @@ export default function AdminPage() {
                   <td className="p-3">
                     {new Date(c.created_at).toLocaleDateString()}
                   </td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => setSelectedContact(c)}
+                      className="text-blue-600 hover:underline"
+                    >
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -109,6 +121,36 @@ export default function AdminPage() {
           {contacts.length === 0 && (
             <p className="p-6 text-gray-500">No inquiries yet.</p>
           )}
+        </div>
+      )}
+
+      {/* ============================
+         VIEW MESSAGE MODAL
+      ============================ */}
+      {selectedContact && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg max-w-lg w-full p-6 relative">
+            <button
+              onClick={() => setSelectedContact(null)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+            >
+              ✕
+            </button>
+
+            <h2 className="text-xl font-bold mb-4">Inquiry Details</h2>
+
+            <p><strong>Name:</strong> {selectedContact.name}</p>
+            <p><strong>Company:</strong> {selectedContact.company}</p>
+            <p><strong>Email:</strong> {selectedContact.email}</p>
+            <p><strong>Service:</strong> {selectedContact.service}</p>
+
+            <div className="mt-4">
+              <strong>Message:</strong>
+              <p className="mt-2 text-gray-700 whitespace-pre-wrap">
+                {selectedContact.message}
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>
