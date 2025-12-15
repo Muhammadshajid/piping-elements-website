@@ -9,7 +9,7 @@ export default function AdminHeader() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  async function handleLogout() {
+  async function logout() {
     await supabase.auth.signOut();
     router.push("/login");
   }
@@ -19,36 +19,33 @@ export default function AdminHeader() {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         
         {/* LOGO */}
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-6 bg-blue-400"></div>
-          <span className="font-bold text-lg tracking-wide">
+        <div className="flex items-center gap-3 font-bold text-lg">
+          <span className="border-l-4 border-blue-400 pl-3">
             PIPING ELEMENTS
           </span>
-          <span className="hidden sm:inline text-sm text-blue-200">
+          <span className="text-sm font-normal opacity-80">
             Admin
           </span>
         </div>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/admin" className="hover:text-blue-300">
-            Dashboard
-          </Link>
-          <Link href="/" className="hover:text-blue-300">
+        {/* DESKTOP ACTIONS */}
+        <div className="hidden md:flex gap-4">
+          <Link href="/" className="opacity-80 hover:opacity-100">
             View Site
           </Link>
+
           <button
-            onClick={handleLogout}
-            className="border border-blue-300 px-4 py-1.5 rounded-md hover:bg-blue-300 hover:text-black transition"
+            onClick={logout}
+            className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-[#082f5c] transition"
           >
             Logout
           </button>
-        </nav>
+        </div>
 
         {/* MOBILE MENU BUTTON */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-2xl"
+          className="md:hidden"
         >
           ☰
         </button>
@@ -56,29 +53,19 @@ export default function AdminHeader() {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden bg-[#082f5c] px-4 pb-4 space-y-3 text-sm">
-          <Link
-            href="/admin"
-            onClick={() => setOpen(false)}
-            className="block"
-          >
-            Dashboard
-          </Link>
+        <div className="md:hidden bg-[#082f5c] border-t border-white/10">
+          <div className="px-4 py-4 flex flex-col gap-3">
+            <Link href="/" onClick={() => setOpen(false)}>
+              View Site
+            </Link>
 
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className="block"
-          >
-            View Site
-          </Link>
-
-          <button
-            onClick={handleLogout}
-            className="block w-full text-left border border-blue-300 px-3 py-2 rounded-md"
-          >
-            Logout
-          </button>
+            <button
+              onClick={logout}
+              className="text-left text-red-300"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       )}
     </header>
