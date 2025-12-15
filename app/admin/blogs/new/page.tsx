@@ -1,19 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import dynamic from "next/dynamic";
-
-// Rich editor
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
+import { useRouter } from "next/navigation";
 
 export default function NewBlogPage() {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [published, setPublished] = useState(false);
@@ -24,9 +18,10 @@ export default function NewBlogPage() {
 
     let imageUrl = null;
 
-    // 1️⃣ Upload image
+    /* ---------- IMAGE UPLOAD ---------- */
     if (image) {
       const fileName = `${Date.now()}-${image.name}`;
+
       const { error } = await supabase.storage
         .from("blog-images")
         .upload(fileName, image);
@@ -44,15 +39,12 @@ export default function NewBlogPage() {
       imageUrl = data.publicUrl;
     }
 
-    // 2️⃣ Insert blog
+    /* ---------- SAVE BLOG ---------- */
     await supabase.from("blogs").insert({
       title,
-      excerpt,
       content,
       image_url: imageUrl,
-      slug: title.toLowerCase().replace(/\s+/g, "-"),
       published,
-      published_at: published ? new Date() : null,
     });
 
     setLoading(false);
@@ -60,49 +52,47 @@ export default function NewBlogPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">New Blog</h1>
+    <div className="max-w-3xl mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-6">New Blog</h1>
 
-      <div className="space-y-6">
+      <input
+        className="w-full border p-3 rounded mb-4"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <textarea
+        className="w-full border p-3 rounded mb-4 h-40"
+        placeholder="Content"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+
+      {/* IMAGE UPLOAD */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files?.[0] || null)}
+        className="mb-4"
+      />
+
+      <label className="flex items-center gap-2 mb-6">
         <input
-          className="w-full border rounded-lg p-3"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          type="checkbox"
+          checked={published}
+          onChange={(e) => setPublished(e.target.checked)}
         />
+        Publish
+      </label>
 
-        <input
-          className="w-full border rounded-lg p-3"
-          placeholder="Short Excerpt"
-          value={excerpt}
-          onChange={(e) => setExcerpt(e.target.value)}
-        />
-
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files?.[0] || null)}
-        />
-
-        <ReactQuill value={content} onChange={setContent} />
-
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={published}
-            onChange={(e) => setPublished(e.target.checked)}
-          />
-          Publish immediately
-        </label>
-
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg"
-        >
-          {loading ? "Saving..." : "Save Blog"}
-        </button>
-      </div>
+      <button
+        onClick={handleSubmit}
+        disabled={loading}
+        className="bg-blue-600 text-white px-6 py-3 rounded"
+      >
+        {loading ? "Saving..." : "Save Blog"}
+      </button>
     </div>
   );
 }
