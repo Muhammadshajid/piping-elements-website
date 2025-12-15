@@ -6,15 +6,10 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function AdminPage() {
   const router = useRouter();
-
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [selectedContact, setSelectedContact] = useState<any | null>(null);
-
-  // STEP A5 states
-  const [replyText, setReplyText] = useState("");
-  const [sending, setSending] = useState(false);
 
   /* ============================
      AUTH CHECK
@@ -25,12 +20,10 @@ export default function AdminPage() {
 
   async function checkAuth() {
     const { data: { user } } = await supabase.auth.getUser();
-
     if (!user) {
       router.push("/login");
       return;
     }
-
     setCheckingAuth(false);
     fetchContacts();
   }
@@ -65,7 +58,7 @@ export default function AdminPage() {
   }
 
   /* ============================
-     DELETE INQUIRY
+     DELETE
   ============================ */
   async function deleteInquiry(id: string) {
     if (!confirm("Delete this inquiry?")) return;
@@ -77,38 +70,6 @@ export default function AdminPage() {
 
     setContacts((prev) => prev.filter((c) => c.id !== id));
     setSelectedContact(null);
-  }
-
-  /* ============================
-     SEND REPLY EMAIL (STEP A5)
-  ============================ */
-  async function sendReply() {
-    if (!selectedContact || !replyText.trim()) {
-      alert("Reply message cannot be empty");
-      return;
-    }
-
-    setSending(true);
-
-    const res = await fetch("/api/send-reply", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        to: selectedContact.email,
-        subject: "Reply from Piping Elements",
-        message: replyText,
-      }),
-    });
-
-    setSending(false);
-
-    if (res.ok) {
-      alert("Email sent successfully");
-      setReplyText("");
-      setSelectedContact(null);
-    } else {
-      alert("Failed to send email");
-    }
   }
 
   /* ============================
@@ -128,24 +89,36 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <button onClick={handleLogout} className="btn-outline">
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      
+      {/* HEADER */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          Admin Dashboard
+        </h1>
+
+        <button
+          onClick={handleLogout}
+          className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition"
+        >
           Logout
         </button>
       </div>
 
+      {/* LOADING */}
+      {loading && <p>Loading inquiries...</p>}
+
+      {/* TABLE */}
       {!loading && (
-        <div className="overflow-x-auto bg-white shadow rounded-lg">
-          <table className="w-full">
+        <div className="bg-white shadow rounded-lg overflow-x-auto">
+          <table className="min-w-[700px] w-full text-sm">
             <thead className="bg-gray-100">
               <tr>
-                <th className="p-3">Name</th>
-                <th className="p-3">Email</th>
-                <th className="p-3">Service</th>
-                <th className="p-3">Status</th>
-                <th className="p-3">Actions</th>
+                <th className="p-3 text-left">Name</th>
+                <th className="p-3 text-left">Email</th>
+                <th className="p-3 text-left">Service</th>
+                <th className="p-3 text-left">Status</th>
+                <th className="p-3 text-left">Actions</th>
               </tr>
             </thead>
 
@@ -153,7 +126,9 @@ export default function AdminPage() {
               {contacts.map((c) => (
                 <tr
                   key={c.id}
-                  className={`border-t ${!c.is_read ? "bg-blue-50" : ""}`}
+                  className={`border-t ${
+                    !c.is_read ? "bg-blue-50" : ""
+                  }`}
                 >
                   <td className="p-3 font-medium">{c.name}</td>
                   <td className="p-3">{c.email}</td>
@@ -167,14 +142,14 @@ export default function AdminPage() {
                         setSelectedContact(c);
                         if (!c.is_read) markAsRead(c.id);
                       }}
-                      className="text-blue-600"
+                      className="text-blue-600 hover:underline"
                     >
                       View
                     </button>
 
                     <button
                       onClick={() => deleteInquiry(c.id)}
-                      className="text-red-600"
+                      className="text-red-600 hover:underline"
                     >
                       Delete
                     </button>
@@ -192,46 +167,26 @@ export default function AdminPage() {
 
       {/* MODAL */}
       {selectedContact && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
             <button
               onClick={() => setSelectedContact(null)}
-              className="absolute top-3 right-3 text-gray-500"
+              className="absolute top-3 right-3 text-gray-600"
             >
               ✕
             </button>
 
-            <h2 className="text-xl font-bold mb-4">Inquiry Details</h2>
+            <h2 className="text-xl font-bold mb-4">
+              Inquiry Details
+            </h2>
 
             <p><strong>Name:</strong> {selectedContact.name}</p>
             <p><strong>Email:</strong> {selectedContact.email}</p>
             <p><strong>Service:</strong> {selectedContact.service}</p>
 
-            <div className="mt-4">
-              <strong>Message:</strong>
-              <p className="mt-2 text-gray-700 whitespace-pre-wrap">
-                {selectedContact.message}
-              </p>
-            </div>
-
-            {/* REPLY SECTION */}
-            <div className="mt-6">
-              <h3 className="font-semibold mb-2">Reply</h3>
-              <textarea
-                value={replyText}
-                onChange={(e) => setReplyText(e.target.value)}
-                className="w-full border rounded p-2 min-h-[120px]"
-                placeholder="Type your reply here..."
-              />
-
-              <button
-                onClick={sendReply}
-                disabled={sending}
-                className="btn-primary mt-4"
-              >
-                {sending ? "Sending..." : "Send Reply"}
-              </button>
-            </div>
+            <p className="mt-4 whitespace-pre-wrap text-gray-700">
+              {selectedContact.message}
+            </p>
           </div>
         </div>
       )}
