@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function AdminPage() {
   const router = useRouter();
+
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -58,7 +59,7 @@ export default function AdminPage() {
   }
 
   /* ============================
-     DELETE
+     DELETE INQUIRY
   ============================ */
   async function deleteInquiry(id: string) {
     if (!confirm("Delete this inquiry?")) return;
@@ -80,92 +81,110 @@ export default function AdminPage() {
     router.push("/login");
   }
 
+  /* ============================
+     LOADING STATE
+  ============================ */
   if (checkingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
         Checking authentication…
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="min-h-screen bg-gray-50">
       
-      {/* HEADER */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold">
-          Admin Dashboard
-        </h1>
+      {/* ============================
+          ADMIN HEADER
+      ============================ */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-blue-700">
+            Piping Elements – Admin
+          </h1>
 
-        <button
-          onClick={handleLogout}
-          className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition"
-        >
-          Logout
-        </button>
-      </div>
-
-      {/* LOADING */}
-      {loading && <p>Loading inquiries...</p>}
-
-      {/* TABLE */}
-      {!loading && (
-        <div className="bg-white shadow rounded-lg overflow-x-auto">
-          <table className="min-w-[700px] w-full text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-3 text-left">Name</th>
-                <th className="p-3 text-left">Email</th>
-                <th className="p-3 text-left">Service</th>
-                <th className="p-3 text-left">Status</th>
-                <th className="p-3 text-left">Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {contacts.map((c) => (
-                <tr
-                  key={c.id}
-                  className={`border-t ${
-                    !c.is_read ? "bg-blue-50" : ""
-                  }`}
-                >
-                  <td className="p-3 font-medium">{c.name}</td>
-                  <td className="p-3">{c.email}</td>
-                  <td className="p-3">{c.service}</td>
-                  <td className="p-3">
-                    {c.is_read ? "Read" : "Unread"}
-                  </td>
-                  <td className="p-3 flex gap-3">
-                    <button
-                      onClick={() => {
-                        setSelectedContact(c);
-                        if (!c.is_read) markAsRead(c.id);
-                      }}
-                      className="text-blue-600 hover:underline"
-                    >
-                      View
-                    </button>
-
-                    <button
-                      onClick={() => deleteInquiry(c.id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {contacts.length === 0 && (
-            <p className="p-6 text-gray-500">No inquiries yet.</p>
-          )}
+          <button
+            onClick={handleLogout}
+            className="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition"
+          >
+            Logout
+          </button>
         </div>
-      )}
+      </header>
 
-      {/* MODAL */}
+      {/* ============================
+          PAGE CONTENT
+      ============================ */}
+      <main className="max-w-7xl mx-auto px-4 py-10">
+        <h2 className="text-2xl font-semibold mb-6">
+          Contact Inquiries
+        </h2>
+
+        {loading && <p>Loading inquiries...</p>}
+
+        {!loading && (
+          <div className="bg-white shadow rounded-lg overflow-x-auto">
+            <table className="min-w-[700px] w-full text-sm">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="p-3 text-left">Name</th>
+                  <th className="p-3 text-left">Email</th>
+                  <th className="p-3 text-left">Service</th>
+                  <th className="p-3 text-left">Status</th>
+                  <th className="p-3 text-left">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {contacts.map((c) => (
+                  <tr
+                    key={c.id}
+                    className={`border-t ${
+                      !c.is_read ? "bg-blue-50" : ""
+                    }`}
+                  >
+                    <td className="p-3 font-medium">{c.name}</td>
+                    <td className="p-3">{c.email}</td>
+                    <td className="p-3">{c.service}</td>
+                    <td className="p-3">
+                      {c.is_read ? "Read" : "Unread"}
+                    </td>
+                    <td className="p-3 flex gap-4">
+                      <button
+                        onClick={() => {
+                          setSelectedContact(c);
+                          if (!c.is_read) markAsRead(c.id);
+                        }}
+                        className="text-blue-600 hover:underline"
+                      >
+                        View
+                      </button>
+
+                      <button
+                        onClick={() => deleteInquiry(c.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {contacts.length === 0 && (
+              <p className="p-6 text-gray-500">
+                No inquiries yet.
+              </p>
+            )}
+          </div>
+        )}
+      </main>
+
+      {/* ============================
+          MODAL
+      ============================ */}
       {selectedContact && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
