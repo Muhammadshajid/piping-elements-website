@@ -1,17 +1,19 @@
 import { createClient } from "@supabase/supabase-js";
+import { notFound } from "next/navigation";
 
-export const revalidate = 0;
+export const revalidate = 0; // disable cache while fixing
 
+// SERVER-ONLY SUPABASE CLIENT
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export default async function BlogDetailPage({
-  params,
-}: {
+type Props = {
   params: { slug: string };
-}) {
+};
+
+export default async function BlogDetail({ params }: Props) {
   const { data: blog, error } = await supabase
     .from("blogs")
     .select("*")
@@ -20,21 +22,19 @@ export default async function BlogDetailPage({
     .single();
 
   if (error || !blog) {
-    return (
-      <div className="p-10 text-center text-gray-500">
-        Blog not found
-      </div>
-    );
+    console.error(error);
+    return notFound();
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-16">
+    <div className="max-w-4xl mx-auto px-6 py-16">
       {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold mb-2">
         {blog.title}
       </h1>
 
-      <p className="text-gray-400 mb-6">
+      {/* DATE */}
+      <p className="text-sm text-gray-500 mb-6">
         {new Date(blog.created_at).toLocaleDateString()}
       </p>
 
@@ -47,8 +47,8 @@ export default async function BlogDetailPage({
         />
       )}
 
-      {/* CONTENT (HTML FIX) */}
-      <div
+      {/* CONTENT — FIXED HTML RENDER */}
+      <article
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
@@ -60,7 +60,7 @@ export default async function BlogDetailPage({
             navigator.clipboard.writeText(window.location.href);
             alert("Blog link copied!");
           }}
-          className="text-blue-600 font-medium"
+          className="text-blue-600 font-medium hover:underline"
         >
           Share this blog →
         </button>
