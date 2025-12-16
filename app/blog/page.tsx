@@ -1,13 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
 
-// Disable ISR while fixing (can enable later)
-export const revalidate = 0;
+export const revalidate = 0; // disable cache while fixing
 
-// ✅ SERVER-SIDE Supabase client (SAFE)
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // SERVER ONLY
 );
 
 export default async function BlogPage() {
@@ -17,19 +15,18 @@ export default async function BlogPage() {
     .eq("published", true)
     .order("created_at", { ascending: false });
 
-  // ❌ Error state
   if (error) {
-    console.error("Blog fetch error:", error);
+    console.error(error);
     return (
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <p className="text-red-600">Failed to load blogs.</p>
+      <div className="p-10 text-red-600">
+        Failed to load blogs
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      {/* PAGE HEADER */}
+    <div className="max-w-7xl mx-auto px-4 py-16">
+      {/* TITLE */}
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold">
           Insights & Blogs
@@ -39,56 +36,53 @@ export default async function BlogPage() {
         </p>
       </div>
 
-      {/* BLOG GRID */}
+      {/* GRID */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {blogs?.map((blog) => (
-          <article
+        {blogs.map((blog) => (
+          <Link
             key={blog.id}
-            className="bg-white shadow rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition"
+            href={`/blog/${blog.slug}`}
+            className="group"
           >
-            {/* IMAGE */}
-            {blog.image_url ? (
-              <img
-                src={blog.image_url}
-                alt={blog.title}
-                className="w-full h-48 object-cover"
-              />
-            ) : (
-              <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400">
-                No Image
+            <article className="bg-white shadow rounded-xl overflow-hidden h-full hover:shadow-lg transition">
+              {/* IMAGE */}
+              {blog.image_url ? (
+                <img
+                  src={blog.image_url}
+                  alt={blog.title}
+                  className="w-full h-52 object-cover"
+                />
+              ) : (
+                <div className="w-full h-52 bg-gray-200 flex items-center justify-center text-gray-400">
+                  No Image
+                </div>
+              )}
+
+              {/* CONTENT */}
+              <div className="p-6 flex flex-col h-full">
+                <h2 className="text-lg font-semibold group-hover:text-blue-600">
+                  {blog.title}
+                </h2>
+
+                <p className="text-gray-600 mt-2 text-sm flex-grow">
+                  {blog.excerpt}
+                </p>
+
+                <div className="mt-4 flex justify-between text-sm">
+                  <span className="text-blue-600 font-medium">
+                    Read More →
+                  </span>
+                  <span className="text-gray-400">
+                    {new Date(blog.created_at).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
-            )}
-
-            {/* CONTENT */}
-            <div className="p-6 flex flex-col flex-grow">
-              <h2 className="text-lg font-semibold leading-snug">
-                {blog.title}
-              </h2>
-
-              <p className="text-gray-600 text-sm mt-2 flex-grow">
-                {blog.excerpt}
-              </p>
-
-              {/* FOOTER */}
-              <div className="mt-4 flex items-center justify-between text-sm">
-                <Link
-                  href={`/blog/${blog.slug}`}
-                  className="text-blue-600 font-medium hover:underline"
-                >
-                  Read More →
-                </Link>
-
-                <span className="text-gray-400">
-                  {new Date(blog.created_at).toLocaleDateString()}
-                </span>
-              </div>
-            </div>
-          </article>
+            </article>
+          </Link>
         ))}
       </div>
 
-      {/* EMPTY STATE */}
-      {blogs?.length === 0 && (
+      {blogs.length === 0 && (
         <p className="text-gray-500 mt-10">
           No blogs published yet.
         </p>
