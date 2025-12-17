@@ -1,7 +1,12 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // ✅ server-only
+);
 
 type Props = {
   params: { slug: string };
@@ -15,7 +20,6 @@ export default async function BlogDetail({ params }: Props) {
     .eq("published", true)
     .single();
 
-  // ✅ handle both "no blog" and "error"
   if (error || !blog) return notFound();
 
   return (
@@ -37,10 +41,10 @@ export default async function BlogDetail({ params }: Props) {
         />
       )}
 
-      {/* CONTENT (✅ fixes <p> showing as text) */}
+      {/* CONTENT (HTML FIX) */}
       <article
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: blog.content || "" }}
+        dangerouslySetInnerHTML={{ __html: blog.content }}
       />
 
       {/* SHARE */}
