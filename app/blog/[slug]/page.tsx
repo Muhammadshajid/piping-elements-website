@@ -38,9 +38,10 @@ export default async function BlogDetail({ params }: Props) {
       )}
 
       {/* CONTENT */}
-      <article className="prose max-w-none">
-        {blog.content}
-      </article>
+      <article
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: blog.content }}
+      />
 
       {/* SHARE */}
       <ShareButtons url={blogUrl} title={blog.title} />
