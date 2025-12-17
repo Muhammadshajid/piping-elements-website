@@ -27,9 +27,10 @@ export default async function BlogPage() {
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {blogs?.map((blog) => (
-          <article
+          <Link
             key={blog.id}
-            className="bg-white shadow rounded-xl overflow-hidden flex flex-col"
+            href={`/blog/${blog.slug}`}
+            className="block bg-white shadow rounded-xl overflow-hidden flex flex-col hover:shadow-lg transition"
           >
             {blog.image_url ? (
               <img
@@ -52,23 +53,15 @@ export default async function BlogPage() {
                 {blog.excerpt}
               </p>
 
-              {/* FULL DIV READ MORE */}
-              <Link
-                href={`/blog/${blog.slug}`}
-                className="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded-lg"
-              >
-                Read More →
-              </Link>
+              <span className="mt-4 text-sm text-blue-600 font-medium">
+                Read Full Article →
+              </span>
 
-              {/* SAFE SHARE */}
-              <a
-                href={`/blog/${blog.slug}`}
-                className="mt-2 text-xs text-gray-500 hover:text-blue-600"
-              >
+              <span className="mt-2 text-xs text-gray-500">
                 Share
-              </a>
+              </span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 
