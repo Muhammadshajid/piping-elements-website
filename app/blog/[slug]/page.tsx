@@ -1,13 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabaseClient";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0; // disable cache while fixing
-
-// SERVER-ONLY SUPABASE CLIENT
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+export const revalidate = 60;
 
 type Props = {
   params: { slug: string };
@@ -22,7 +16,6 @@ export default async function BlogDetail({ params }: Props) {
     .single();
 
   if (error || !blog) {
-    console.error(error);
     return notFound();
   }
 
@@ -47,7 +40,7 @@ export default async function BlogDetail({ params }: Props) {
         />
       )}
 
-      {/* CONTENT — FIXED HTML RENDER */}
+      {/* CONTENT (FIX <p> ISSUE HERE) */}
       <article
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: blog.content }}
