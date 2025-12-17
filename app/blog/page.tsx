@@ -12,7 +12,6 @@ export default async function BlogPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
-      {/* TITLE */}
       <h1 className="text-3xl md:text-4xl font-bold mb-2">
         Insights & Blogs
       </h1>
@@ -32,7 +31,6 @@ export default async function BlogPage() {
             key={blog.id}
             className="bg-white shadow rounded-xl overflow-hidden flex flex-col"
           >
-            {/* ✅ IMAGE (safe) */}
             {blog.image_url ? (
               <img
                 src={blog.image_url}
@@ -54,7 +52,7 @@ export default async function BlogPage() {
                 {blog.excerpt}
               </p>
 
-              {/* ✅ FULL WIDTH READ MORE */}
+              {/* FULL DIV READ MORE */}
               <Link
                 href={`/blog/${blog.slug}`}
                 className="mt-4 block w-full text-center bg-blue-600 text-white py-2 rounded-lg"
@@ -62,20 +60,13 @@ export default async function BlogPage() {
                 Read More →
               </Link>
 
-              {/* ✅ SHARE (added, safe) */}
-              <button
+              {/* SAFE SHARE */}
+              <a
+                href={`/blog/${blog.slug}`}
                 className="mt-2 text-xs text-gray-500 hover:text-blue-600"
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    navigator.clipboard.writeText(
-                      `${window.location.origin}/blog/${blog.slug}`
-                    );
-                    alert("Blog link copied!");
-                  }
-                }}
               >
                 Share
-              </button>
+              </a>
             </div>
           </article>
         ))}
