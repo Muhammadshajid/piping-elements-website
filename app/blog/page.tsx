@@ -53,9 +53,10 @@ export default async function BlogPage() {
                 {blog.excerpt}
               </p>
 
-              <span className="mt-4 text-sm text-blue-600 font-medium">
-                Read Full Article →
-              </span>
+             <span className="mt-4 text-sm text-black font-medium">
+             Read more →
+            </span>
+
 
               <span className="mt-2 text-xs text-gray-500">
                 Share
