@@ -26,7 +26,7 @@ export default function HomePage() {
             <Link href="/services" className="btn-primary">
               Explore Services
             </Link>
-            <Link href="/contact" className="btn btn-light">
+            <Link href="/contact" className="btn btn-outline-dark btn-lg">
               Talk to an Expert
             </Link>
           </div>
