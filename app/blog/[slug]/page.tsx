@@ -33,7 +33,7 @@ export default async function BlogDetail({ params }: Props) {
         <img
           src={blog.image_url}
           alt={blog.title}
-          className="w-full rounded-xl mb-8"
+          className="w-full rounded-xl mb-4"
         />
       )}
 
