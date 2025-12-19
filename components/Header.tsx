@@ -27,12 +27,15 @@ export default function Header() {
           <Link href="/blog">Blog</Link>
           <Link href="/contact">Contact</Link>
 
-          <button className="ml-4 px-4 py-2 rounded-lg border border-white">
-            Request Consultation
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-blue-500">
+           <div className="mt-8 flex gap-4">
+            <Link href="/contact" className="ml-4 px-4 py-2 rounded-lg border border-white">
+             Request Consultation
+            </Link>
+            <Link href="/software" className="px-4 py-2 rounded-lg bg-blue-500">
             Request Software Demo
-          </button>
+            </Link>
+          </div>
+         
         </nav>
 
         {/* MOBILE MENU ICON */}
