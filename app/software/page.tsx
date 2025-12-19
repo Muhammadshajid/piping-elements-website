@@ -13,7 +13,7 @@ export default function SoftwarePage() {
       </section>
 
       <section className="py-20 bg-white">
-       <h1 className="font-bold">Comimg soon..</h1> 
+       <h1 className="text-4xl font-bold">Comimg soon..</h1> 
       <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
           {[
             [""],
