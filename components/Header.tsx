@@ -27,7 +27,7 @@ export default function Header() {
           <Link href="/blog">Blog</Link>
           <Link href="/contact">Contact</Link>
 
-           <div className="mt-8 flex gap-4">
+           <div className="flex gap-4">
             <Link href="/contact" className="ml-4 px-4 py-2 rounded-lg border border-white">
              Request Consultation
             </Link>
