@@ -13,7 +13,7 @@ export default function SoftwarePage() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+        /*<div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
           {[
             ["Coming soon...."],
             
@@ -21,7 +21,8 @@ export default function SoftwarePage() {
             <div key={title} className="bg-gray-50 p-6 rounded-xl text-center">
               <h3 className="font-semibold">{title}</h3>
               <p className="text-gray-600 mt-2">{desc}</p>
-            </div>
+            </div> 
+            */
           ))}
         </div>
       </section>
