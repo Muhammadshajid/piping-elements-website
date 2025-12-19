@@ -123,11 +123,7 @@ export default function HomePage() {
             with our GCC-authorized software solutions.
           </p>
 
-          <ul className="mt-6 space-y-2">
-            <li>✔ PipeCloud – Cloud-based project management</li>
-            <li>✔ Pipesurf – Complete fabrication management</li>
-            <li>✔ SpoolCAD – 3D modeling, BOM & ERP integration</li>
-          </ul>
+         
 
           <button className="btn-outline mt-8">View All Software</button>
         </div>
