@@ -14,7 +14,7 @@ export default function SoftwarePage() {
 
       <section className="py-20 bg-white">
         
-        <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+     */   <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8">
           {[
             ["Coming soon...."],
             
@@ -25,7 +25,7 @@ export default function SoftwarePage() {
             </div> 
            
           ))}
-        </div>
+        </div> */
       </section>
     </>
   );
