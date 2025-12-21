@@ -492,8 +492,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
-  );
-}
 
 
 {/* Latest Insights */}
