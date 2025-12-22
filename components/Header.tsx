@@ -22,7 +22,7 @@ export default function Header() {
   <img
     src="/Logo.png"
     alt="Piping Elements Logo"
-    className="h-8 w-auto"
+    className="h-9 w-auto"
   />
   <span className="font-semibold text-lg">PIPING ELEMENTS</span>
 </Link>
