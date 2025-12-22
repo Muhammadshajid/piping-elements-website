@@ -78,12 +78,12 @@ export default function Header() {
               </div>
             </div>
 
-            <Link
+            {/* <Link
               href="/"
               className={`${isActive("/") ? "text-blue-600" : "text-gray-700"} hover:text-blue-600 transition-colors`}
             >
               Software Solutions
-            </Link>
+            </Link> */}
             <Link
               href="/blog"
               className={`${isActive("/blog") ? "text-blue-600" : "text-gray-700"} hover:text-blue-600 transition-colors`}
@@ -182,13 +182,13 @@ export default function Header() {
                 )}
               </div>
 
-              <Link
+              {/* <Link
                 href="/"
                 className="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
                 Software Solutions
-              </Link>
+              </Link> */}
               <Link
                 href="/blog"
                 className="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md"
