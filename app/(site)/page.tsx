@@ -296,7 +296,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Experts Carousel */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl font-bold">Featured Experts</h2>
@@ -366,7 +366,82 @@ export default function HomePage() {
             ) : null}
           </div>
         </div>
-      </section>
+      </section> */}
+{/* =====================================================
+   CORE STRENGTHS & TRUSTABILITY
+   ===================================================== */}
+<section className="py-16 sm:py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <div className="text-center mb-14">
+      <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl font-bold">
+        Our Core Strengths & Why Clients Trust Us
+      </h2>
+      <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+        Built on decades of EPC experience, execution excellence, and proven delivery
+        across complex energy projects.
+      </p>
+    </div>
+
+    {/* Core Strengths */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
+      {[
+        {
+          title: "Senior-Level Expertise",
+          desc: "Retired EPC managers, PhD specialists, and industry veterans guiding critical decisions.",
+        },
+        {
+          title: "Execution-Focused Advisory",
+          desc: "Practical solutions grounded in real project execution—not theoretical consulting.",
+        },
+        {
+          title: "End-to-End Supply Chain",
+          desc: "Procurement, vendor management, and material control tailored for EPC environments.",
+        },
+        {
+          title: "Knowledge Transfer",
+          desc: "Mentoring and capability-building for teams and future industry professionals.",
+        },
+      ].map((item) => (
+        <div
+          key={item.title}
+          className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+        >
+          <h3 className="text-gray-900 mb-3 text-xl font-semibold">
+            {item.title}
+          </h3>
+          <p className="text-gray-600">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* Trustability Points */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      {[
+        {
+          title: "Proven EPC Track Record",
+          desc: "Our experts have led and delivered some of the most complex oil & gas and energy projects in the GCC.",
+        },
+        {
+          title: "Independent & Unbiased",
+          desc: "We act purely in our clients’ interest—no vendor-driven or tool-driven recommendations.",
+        },
+        {
+          title: "Trusted by Industry",
+          desc: "Recognized and relied upon by EPC contractors, fabricators, and project owners.",
+        },
+      ].map((item) => (
+        <div
+          key={item.title}
+          className="bg-blue-600 text-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          <h3 className="mb-3 text-xl font-semibold">{item.title}</h3>
+          <p className="text-blue-100">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Software Solutions Overview */}
       {/* <section className="py-16 sm:py-20 bg-blue-600 text-white">
