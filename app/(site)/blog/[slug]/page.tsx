@@ -2,106 +2,63 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import {
-  Linkedin,
-  Twitter,
-  Share2,
-  MessageCircle,
-} from "lucide-react";
+import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { trackPageView } from "@/lib/analytics";
 
-export default function BlogDetailPage() {
+export default function BlogDetailPage({ params }: { params: { slug: string } }) {
   const pathname = usePathname();
-  const url =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${pathname}`
-      : "";
+  const url = `https://yourdomain.com${pathname}`;
 
   useEffect(() => {
-    trackPageView(pathname);
-  }, [pathname]);
+    trackPageView(`/blog/${params.slug}`);
+  }, [params.slug]);
 
   return (
-    <article className="bg-white">
-      {/* Hero */}
-      <section className="bg-gray-900 text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            How EPC Companies Can Reduce Project Risk
-          </h1>
-          <p className="text-gray-300">
-            By Piping Elements · March 2025
-          </p>
+    <article className="max-w-4xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-4">
+        Blog Title Goes Here
+      </h1>
+
+      <p className="text-gray-500 mb-8">
+        Published on Sep 10, 2025
+      </p>
+
+      <div className="prose prose-lg max-w-none mb-12">
+        <p>
+          This is the detailed blog content. Replace this with your actual blog
+          body coming from database or CMS.
+        </p>
+      </div>
+
+      {/* Share */}
+      <div className="border-t pt-6">
+        <h3 className="text-lg font-semibold mb-4">Share this article</h3>
+        <div className="flex gap-4">
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Facebook className="h-6 w-6 text-blue-600" />
+          </a>
+
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin className="h-6 w-6 text-blue-700" />
+          </a>
+
+          <a
+            href={`https://twitter.com/intent/tweet?url=${url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Twitter className="h-6 w-6 text-sky-500" />
+          </a>
         </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
-            <p>
-              Engineering, Procurement, and Construction projects carry
-              significant technical and commercial risk. Senior-level advisory
-              and structured supply chain strategies play a critical role in
-              mitigating these risks.
-            </p>
-
-            <h2>Why Risk Management Matters</h2>
-            <p>
-              EPC projects often suffer from schedule overruns, cost escalation,
-              and coordination challenges. Early-stage engineering clarity and
-              procurement discipline are essential.
-            </p>
-
-            <h2>The Role of Senior Expertise</h2>
-            <p>
-              Organizations that leverage retired EPC leaders and domain experts
-              benefit from real-world decision-making, not theoretical models.
-            </p>
-
-            <p>
-              At Piping Elements, we support contractors with expert advisory,
-              supply chain optimization, and execution intelligence.
-            </p>
-          </div>
-
-          {/* Share */}
-          <div className="mt-12 border-t pt-6">
-            <div className="flex items-center gap-4">
-              <span className="text-gray-700 font-medium flex items-center gap-2">
-                <Share2 className="h-5 w-5" /> Share
-              </span>
-
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-
-              <a
-                href={`https://twitter.com/intent/tweet?url=${url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-sky-100 text-sky-600 hover:bg-sky-200"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-
-              <a
-                href={`https://wa.me/?text=${url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </article>
   );
 }
