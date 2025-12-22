@@ -102,10 +102,11 @@ export default function BlogPage() {
                   <p className="text-blue-600 text-sm mb-2">{p.category || ""}</p>
                   <h3 className="text-gray-900 mb-3 text-xl font-semibold">{p.title}</h3>
                   {p.excerpt ? <p className="text-gray-600 mb-4">{p.excerpt}</p> : null}
-                  <Link
-                    href={posts.length ? `/blog#${p.slug}` : "/contact"}
+                 <Link
+                   href={p.slug ? `/blog/${p.slug}` : "/contact"}
                     className="text-blue-600 hover:text-blue-700 inline-flex items-center"
-                  >
+                    >
+
                     Read More <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
