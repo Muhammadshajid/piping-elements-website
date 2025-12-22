@@ -20,7 +20,7 @@ export default function Header() {
           {/* Logo */}
          <Link href="/" className="flex items-center gap-3">
   <img
-    src="/logo.png"
+    src="//public/logo.png"
     alt="Piping Elements Logo"
     className="h-8 w-auto"
   />
