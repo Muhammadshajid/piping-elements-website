@@ -43,6 +43,7 @@ export default function SeniorExpertAdvisoryPage() {
                   "Independent technical reviews and decision support",
                   "Mentoring for project teams and discipline leads",
                   "Executive reporting and stakeholder communication",
+                  "Executive reporting and stakeholder communication",
                 ].map((t) => (
                   <div key={t} className="flex items-start">
                     <CheckCircle className="h-6 w-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
