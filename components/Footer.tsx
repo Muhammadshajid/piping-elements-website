@@ -13,17 +13,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left: Logo + Tagline */}
           <div>
-            <div className="flex items-center mb-4">
-              <div className="text-blue-500" aria-hidden="true">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <rect x="4" y="8" width="4" height="24" fill="currentColor" />
-                  <rect x="12" y="4" width="4" height="32" fill="currentColor" />
-                  <rect x="20" y="12" width="4" height="16" fill="currentColor" />
-                  <rect x="28" y="6" width="4" height="28" fill="currentColor" />
-                </svg>
-              </div>
-              <span className="ml-3 text-white">PIPING ELEMENTS</span>
-            </div>
+           <div className="flex items-center gap-3 mb-4">
+  <img
+    src="/Logo.png"
+    alt="Piping Elements Logo"
+    className="h-8 w-auto"
+  />
+  <span className="text-lg font-semibold">Piping Elements</span>
+</div>
+
             <p className="text-gray-400">Engineering Intelligence &amp; Supply Chain Expertise</p>
           </div>
 
@@ -61,14 +59,14 @@ export default function Footer() {
                 info@pipingelements.com
               </a>
               <a
-                href="tel:+971501234567"
+                href="tel:+971501680453"
                 className="flex items-center hover:text-blue-400 transition-colors"
               >
                 <Phone className="h-5 w-5 mr-2" />
-                +971 50 123 4567
+                +971 50 168 0453
               </a>
               <a
-                href="https://wa.me/971501234567"
+                href="https://wa.me/971501680453"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center hover:text-blue-400 transition-colors"
@@ -77,7 +75,7 @@ export default function Footer() {
                 WhatsApp
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/pipingelement-s"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center hover:text-blue-400 transition-colors"
