@@ -18,17 +18,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
-            <div className="text-blue-600" aria-hidden="true">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <rect x="4" y="8" width="4" height="24" fill="currentColor" />
-                <rect x="12" y="4" width="4" height="32" fill="currentColor" />
-                <rect x="20" y="12" width="4" height="16" fill="currentColor" />
-                <rect x="28" y="6" width="4" height="28" fill="currentColor" />
-              </svg>
-            </div>
-            <span className="ml-3 text-gray-900">PIPING ELEMENTS</span>
-          </Link>
+         <Link href="/" className="flex items-center gap-3">
+  <img
+    src="/logo.png"
+    alt="Piping Elements Logo"
+    className="h-8 w-auto"
+  />
+  <span className="font-semibold text-lg">PIPING ELEMENTS</span>
+</Link>
+
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
