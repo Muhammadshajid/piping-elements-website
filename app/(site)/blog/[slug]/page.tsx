@@ -5,9 +5,13 @@ import { usePathname } from "next/navigation";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { trackPageView } from "@/lib/analytics";
 
-export default function BlogDetailPage({ params }: { params: { slug: string } }) {
+export default function BlogDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const pathname = usePathname();
-  const url = `https://yourdomain.com${pathname}`;
+  const url = `https://piping-elements-websites-halsaetie-muhammad-shajids-projects.vercel.app${pathname}`;
 
   useEffect(() => {
     trackPageView(`/blog/${params.slug}`);
@@ -15,22 +19,22 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
 
   return (
     <article className="max-w-4xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-4">
-        Blog Title Goes Here
+      <h1 className="text-4xl font-bold mb-4 capitalize">
+        {params.slug.replace(/-/g, " ")}
       </h1>
 
       <p className="text-gray-500 mb-8">
-        Published on Sep 10, 2025
+        Published by Piping Elements
       </p>
 
       <div className="prose prose-lg max-w-none mb-12">
         <p>
-          This is the detailed blog content. Replace this with your actual blog
-          body coming from database or CMS.
+          This is the detailed blog content page.  
+          You can load real content here from Supabase or CMS.
         </p>
       </div>
 
-      {/* Share */}
+      {/* Share Section */}
       <div className="border-t pt-6">
         <h3 className="text-lg font-semibold mb-4">Share this article</h3>
         <div className="flex gap-4">
