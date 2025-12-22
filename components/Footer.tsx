@@ -37,9 +37,9 @@ export default function Footer() {
               <Link href="/services" className="hover:text-blue-400 transition-colors">
                 Services
               </Link>
-              <Link href="/software" className="hover:text-blue-400 transition-colors">
+              {/* <Link href="/software" className="hover:text-blue-400 transition-colors">
                 Software Solutions
-              </Link>
+              </Link> */}
               <Link href="/blog" className="hover:text-blue-400 transition-colors">
                 Blog
               </Link>
