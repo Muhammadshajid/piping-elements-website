@@ -86,9 +86,7 @@ export default function Footer() {
             </div>
             <div className="mt-6">
               <p className="text-gray-400 mb-1">UAE Office</p>
-              <p className="text-gray-400 mb-3">Dubai, United Arab Emirates</p>
-              <p className="text-gray-400 mb-1">India Office</p>
-              <p className="text-gray-400">Mumbai, India</p>
+              <p className="text-gray-400 mb-3">Sharjah, United Arab Emirates</p>
             </div>
           </div>
         </div>
