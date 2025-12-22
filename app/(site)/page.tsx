@@ -369,15 +369,15 @@ export default function HomePage() {
       </section>
 
       {/* Software Solutions Overview */}
-      <section className="py-16 sm:py-20 bg-blue-600 text-white">
+      {/* <section className="py-16 sm:py-20 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-white mb-6 text-3xl sm:text-4xl font-bold">GCC-Authorized Software Solutions</h2>
               <p className="text-lg sm:text-xl text-blue-100 mb-6">
                 Streamline your piping fabrication process from drawing to dispatch with our
-                GCC-authorized software solutions.
-              </p>
+                GCC-authorized software solutions. */}
+              {/* </p>
               <div className="space-y-4 mb-8">
                 {[
                   { name: "PipeCloud", desc: "Cloud-based project management and collaboration" },
@@ -417,7 +417,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Latest Insights */}
       <section className="py-16 sm:py-20 bg-white">
