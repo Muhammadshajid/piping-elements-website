@@ -88,11 +88,11 @@ export default function ContactPage() {
                   info@pipingelements.com
                 </a>
                 <a
-                  href="tel:+971501234567"
+                  href="tel:+971501680453"
                   className="flex items-center text-gray-700 hover:text-blue-600 transition-colors"
-                >
+
                   <Phone className="h-5 w-5 mr-3" />
-                  +971 50 123 4567
+                  +971 50 168 0453
                 </a>
                 <div className="flex items-center text-gray-700">
                   <MapPin className="h-5 w-5 mr-3" />
