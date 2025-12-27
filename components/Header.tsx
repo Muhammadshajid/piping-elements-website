@@ -211,13 +211,13 @@ export default function Header() {
                 >
                   Request Consultation
                 </Link>
-                <Link
+                {/* <Link
                   href="/"
                   className="block w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-center"
                   onClick={() => setIsOpen(false)}
                 >
                   Request Software Demo
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
