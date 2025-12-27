@@ -226,7 +226,7 @@ export default function HomePage() {
               {
                 title: "Software Solutions",
                 desc: "GCC-authorized software: Pipesurf and SpoolCAD.",
-                href: "/software",
+                href: "/contact,
                 Icon: Code,
               },
             ].map(({ title, desc, href, Icon }) => (
