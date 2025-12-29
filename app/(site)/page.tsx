@@ -496,47 +496,78 @@ export default function HomePage() {
 
       {/* Latest Insights */}
       <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl font-bold">Latest Insights &amp; Blog</h2>
-            <p className="text-lg sm:text-xl text-gray-600">Expert knowledge and industry updates</p>
-          </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-gray-900 mb-4 text-3xl sm:text-4xl font-bold">
+        Latest Insights & Blog
+      </h2>
+      <p className="text-lg sm:text-xl text-gray-600">
+        Expert knowledge and industry updates
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {(posts.length ? posts : (fallbackBlogPosts as any)).map((post: any, idx: number) => {
-              const title = post.title;
-              const category = post.category || "";
-              const excerpt = post.excerpt || post.excerpt;
-              const image = post.image_url || post.image;
-              const href = posts.length ? `/blog#${post.slug}` : "/blog";
-              return (
-                <div key={posts.length ? post.id : idx} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="h-48 bg-gray-200">
-                    {image ? <img src={image} alt={title} className="w-full h-full object-cover" /> : null}
-                  </div>
-                  <div className="p-6">
-                    <p className="text-blue-600 text-sm mb-2">{category}</p>
-                    <h3 className="text-gray-900 mb-3 text-xl font-semibold">{title}</h3>
-                    {excerpt ? <p className="text-gray-600 mb-4">{excerpt}</p> : null}
-                    <Link href={href} className="text-blue-600 hover:text-blue-700 inline-flex items-center">
-                      Read More <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      {(posts.length ? posts : (fallbackBlogPosts as any)).map(
+        (post: any, idx: number) => {
+          const title = post.title;
+          const category = post.category || "";
+          const excerpt = post.excerpt;
+          const image = post.image_url || post.image;
+          const slug = post.slug;
 
-          <div className="text-center mt-12">
+          // ✅ blog detail link
+          const href = slug ? `/blog/${slug}` : "/blog";
+
+          return (
             <Link
-              href="/blog"
-              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              key={post.id ?? idx}
+              href={href}
+              className="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
-              View All Posts
+              <div className="h-48 bg-gray-200 overflow-hidden">
+                {image && (
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
+                )}
+              </div>
+
+              <div className="p-6">
+                <p className="text-blue-600 text-sm mb-2">{category}</p>
+
+                <h3 className="text-gray-900 mb-3 text-xl font-semibold group-hover:text-blue-600 transition">
+                  {title}
+                </h3>
+
+                {excerpt && (
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {excerpt}
+                  </p>
+                )}
+
+                <span className="inline-flex items-center text-blue-600 font-medium">
+                  Read More <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
+              </div>
             </Link>
-          </div>
-        </div>
-      </section>
+          );
+        }
+      )}
+    </div>
+
+    {/* View All */}
+    <div className="text-center mt-12">
+      <Link
+        href="/blog"
+        className="inline-block px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+      >
+        View All Posts
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* Final CTA */}
       <section className="py-16 sm:py-20 bg-gray-900 text-white">
