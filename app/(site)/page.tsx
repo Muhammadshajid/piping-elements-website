@@ -225,7 +225,7 @@ export default function HomePage() {
               },
               {
                 title: "Software Solutions",
-                desc: "Software for pipe fabrication and isometric ",
+                desc: "GCC- authorised software solutions for pipe fabrication and piping isometrics ",
                 href: "/contact",
                 Icon: Code,
               },
