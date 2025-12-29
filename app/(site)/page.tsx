@@ -225,7 +225,7 @@ export default function HomePage() {
               },
               {
                 title: "Software Solutions",
-                desc: "GCC-authorized software: Pipesurf and SpoolCAD.",
+                desc: "GCC-authorized software for fabrication, oil and gas and etc.",
                 href: "/contact",
                 Icon: Code,
               },
