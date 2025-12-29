@@ -7,16 +7,16 @@ import { supabase } from "@/lib/supabaseClient";
 import { trackPageView } from "@/lib/analytics";
 
 type BlogPost = {
-  id: string;
+  id?: string;
   title: string;
   excerpt: string | null;
   category: string | null;
   image_url: string | null;
   slug: string;
-  created_at: string;
+  created_at?: string;
 };
 
-const fallback = [
+const fallback: BlogPost[] = [
   {
     title: "Optimizing Supply Chain for EPC Projects in GCC",
     excerpt:
@@ -61,7 +61,7 @@ export default function BlogPage() {
         .eq("published", true)
         .order("created_at", { ascending: false });
 
-      if (data) setPosts(data);
+      if (data) setPosts(data as BlogPost[]);
     })();
   }, []);
 
@@ -79,13 +79,17 @@ export default function BlogPage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-gray-900/80" />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <h1 className="text-white mb-6 text-4xl sm:text-5xl font-bold">
-            Insights & Knowledge from Industry Experts
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-200">
-            Practical insights on procurement, engineering, execution, and digital transformation.
-          </p>
+          <div className="max-w-4xl">
+            <h1 className="text-white mb-6 text-4xl sm:text-5xl font-bold">
+              Insights & Knowledge from Industry Experts
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-200">
+              Practical insights on procurement, engineering, execution, and
+              digital transformation.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -94,11 +98,11 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {list.map((post, idx) => {
-              const href = `/blog/${post.slug}`;
+              const href = post.slug ? `/blog/${post.slug}` : "/blog";
 
               return (
                 <Link
-                  key={post.id || idx}
+                  key={post.slug ?? idx}
                   href={href}
                   className="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                 >
@@ -134,16 +138,6 @@ export default function BlogPage() {
                 </Link>
               );
             })}
-          </div>
-
-          {/* View all */}
-          <div className="text-center mt-12">
-            <Link
-              href="/blog"
-              className="inline-block px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              View All Posts
-            </Link>
           </div>
         </div>
       </section>
