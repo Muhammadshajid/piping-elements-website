@@ -225,7 +225,7 @@ export default function HomePage() {
               },
               {
                 title: "Software Solutions",
-                desc: "GCC-authorized software for fabrication, oil and gas and etc.",
+                desc: "Software for pipe fabrication and isometric ",
                 href: "/contact",
                 Icon: Code,
               },
