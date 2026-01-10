@@ -6,7 +6,7 @@ export const metadata = {
     template: "%s | Piping Elements",
   },
   description:
-    "Piping Elements provides EPC advisory, supply chain consulting, and senior-level expertise for oil & gas and energy projects.",
+    "Piping Elements specializes in EPC advisory, supply chain consulting, and senior expertise for oil & gas and energy developments.",
   icons: {
     icon: "/favicon.ico",
   },
